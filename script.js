@@ -36,3 +36,53 @@ function operate(a, b, operator) {
         return divide(a, b);
     }
 }
+
+//function that will populate the display when you click the digit buttons
+function displayNum() {
+    const display = document.querySelector('#display');
+    const digit = document.querySelectorAll('.num');
+
+    digit.forEach((button) => {
+        button.addEventListener('click', () => {
+            display.textContent += button.textContent;
+        });
+    });
+
+}
+
+displayNum();
+
+const display = document.querySelector('#display');
+const operators = document.querySelectorAll('.op');
+
+operators.forEach((button) => {
+    button.addEventListener('click', () => {
+        if(num1 === '') {
+            num1 = Number(display.textContent);
+            operator = button.textContent;
+            display.textContent = '';
+        }
+    });
+});
+
+const equals = document.querySelector('#btn-equals');
+
+equals.addEventListener('click', () => {
+    num2 = Number(display.textContent);
+    const results = operate(num1, num2, operator);
+    display.textContent = results;
+
+    num1 = results;
+    num2 = '';
+    operator = '';
+});
+
+const clear = document.querySelector('#btn-clear');
+
+clear.addEventListener('click', () => {
+    num1 = '';
+    num2 = '';
+    operator = '';
+
+    display.textContent = '';
+});
